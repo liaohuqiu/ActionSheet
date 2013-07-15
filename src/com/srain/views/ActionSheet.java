@@ -5,12 +5,14 @@ import com.srain.actionsheet.R;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Rect;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -43,7 +45,6 @@ public class ActionSheet {
 				mDialog.dismiss();
 			}
 		});
-
 		mActionSheetContainer.addView(view);
 	}
 
@@ -53,7 +54,6 @@ public class ActionSheet {
 		TextView actionView = (TextView) view.findViewById(R.id.btn_action_sheet_cancel);
 		actionView.setText(mContext.getString(R.string.action_sheet_cancel));
 		actionView.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
 				mDialog.dismiss();
@@ -63,14 +63,18 @@ public class ActionSheet {
 		mActionSheetContainer.addView(view);
 
 		DisplayMetrics metrics = new DisplayMetrics();
-		((Activity) mContext).getWindowManager().getDefaultDisplay().getMetrics(metrics);
-		int width = metrics.widthPixels;
+		Rect rect = new Rect();
+
+		Activity activity = ((Activity) mContext);
+		WindowManager windowManager = activity.getWindowManager();
+		windowManager.getDefaultDisplay().getMetrics(metrics);
+		activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
 
 		mDialog = new Dialog(mContext, R.style.ActionSheetStyle);
 		mDialog.setContentView(mContentView);
 		mDialog.getWindow().setGravity(Gravity.BOTTOM);
-		mDialog.getWindow().getAttributes().width = width;
-		mDialog.getWindow().getAttributes().height = metrics.heightPixels - 50;
+		mDialog.getWindow().getAttributes().width = metrics.widthPixels;
+		mDialog.getWindow().getAttributes().height = metrics.heightPixels - rect.top;
 		mDialog.show();
 	}
 }
