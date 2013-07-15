@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp"
+    android:paddingTop="5dp" >
+
+    <TextView
+        android:id="@+id/btn_action_sheet_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/actionsheet_desc_rounded_no_padding_black"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:textIsSelectable="false"
+        android:textSize="15sp" />
+
+</RelativeLayout>
